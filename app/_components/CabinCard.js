@@ -1,5 +1,6 @@
 import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import Link from "next/link";
 
 function CabinCard({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
@@ -47,12 +48,12 @@ function CabinCard({ cabin }) {
         </div>
 
         <div className="text-right border-t bg-primary-950 border-t-primary-800">
-          <a
+          <Link
             href={`/cabins/${id}`}
             className="inline-block px-6 py-4 transition-all border-l border-primary-800 hover:bg-accent-600 hover:text-primary-900"
           >
             Details & reservation &rarr;
-          </a>
+          </Link>
         </div>
       </div>
     </div>
