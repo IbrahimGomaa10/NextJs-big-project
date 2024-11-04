@@ -1,16 +1,17 @@
 import SelectCountry from "@/app/_components/SelectCountry";
 import UpdatedProfileForm from "@/app/_components/UpdatedProfileForm";
+import { auth } from "@/app/_lib/auth";
+import { getGuest } from "@/app/_lib/data-service";
 import Image from "next/image";
 
 export const metadata = {
   title: "Update your guest profile",
 };
 
-export default function Page() {
-  // CHANGE
-  const countryFlag = "pt.jpg";
-  const nationality = "portugal";
-
+export default async function Page() {
+  const session = await auth();
+  const guest = await getGuest(session?.user?.email);
+  const { nationality } = guest;
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold text-accent-400">
@@ -21,7 +22,7 @@ export default function Page() {
         Providing the following information will make your check-in process
         faster and smoother. See you soon!
       </p>
-      <UpdatedProfileForm>
+      <UpdatedProfileForm guest={guest}>
         <SelectCountry
           name="nationality"
           id="nationality"
