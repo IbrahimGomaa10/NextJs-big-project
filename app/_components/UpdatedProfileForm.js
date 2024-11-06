@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { updateGuest } from "../_lib/actions";
-import { useFormStatus } from "react-dom";
-import SpinnerMini from "./SpinnerMini";
+import SubmittedButton from "./SubmittedButton";
 
 export default function UpdatedProfileForm({ guest, children }) {
   const { fullName, email, nationalId, countryFlag, nationality } = guest;
@@ -58,20 +57,8 @@ export default function UpdatedProfileForm({ guest, children }) {
       </div>
 
       <div className="flex items-center justify-end gap-6">
-        <Button />
+        <SubmittedButton>Update Profile</SubmittedButton>
       </div>
     </form>
-  );
-}
-
-function Button() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      className="px-8 py-4 font-semibold transition-all bg-accent-500 text-primary-800 hover:bg-accent-600 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300 rounded"
-      disabled={pending}
-    >
-      {pending ? <SpinnerMini /> : "Update profile"}
-    </button>
   );
 }

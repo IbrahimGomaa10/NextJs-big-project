@@ -15,9 +15,9 @@ function ReservationCard({ booking }) {
     guestsId,
     startDate,
     endDate,
-    numNights,
+    numOfNights,
     totalPrice,
-    numGuests,
+    numOfGuests,
     status,
     created_at,
     cabins: { name, image },
@@ -37,7 +37,7 @@ function ReservationCard({ booking }) {
       <div className="flex flex-col flex-grow px-6 py-3">
         <div className="flex items-center justify-between">
           <h3 className="text-xl font-semibold">
-            {numNights} nights in Cabin {name}
+            {numOfNights} nights in Cabin {name}
           </h3>
           {isPast(new Date(startDate)) ? (
             <span className="flex items-center px-3 text-xs font-bold text-yellow-200 uppercase bg-yellow-800 rounded-sm h-7">
@@ -62,7 +62,7 @@ function ReservationCard({ booking }) {
           <p className="text-xl font-semibold text-accent-400">${totalPrice}</p>
           <p className="text-primary-300">&bull;</p>
           <p className="text-lg text-primary-300">
-            {numGuests} guest{numGuests > 1 && "s"}
+            {numOfGuests} guest{numOfGuests > 1 && "s"}
           </p>
           <p className="ml-auto text-sm text-primary-400">
             Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}
