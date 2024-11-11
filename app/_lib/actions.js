@@ -7,7 +7,6 @@ import { getBookings } from "./data-service";
 import { redirect } from "next/navigation";
 
 export async function updateGuest(formData) {
-  console.log(formData);
   const session = await auth();
   if (!session?.user) throw new Error("You need to be logged in");
 
@@ -51,8 +50,6 @@ export async function deleteReservation(bookingId) {
 }
 
 export async function updateReservation(formData) {
-  console.log(formData);
-
   const bookingId = Number(formData.get("bookingId"));
 
   const session = await auth();

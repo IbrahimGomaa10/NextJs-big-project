@@ -1,5 +1,10 @@
 "use client";
-import { isWithinInterval } from "date-fns";
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -15,16 +20,16 @@ function isAlreadyBooked(range, datesArr) {
   );
 }
 
-function DateSelector({ settings, bookedDates }) {
+function DateSelector({ settings, bookedDates, cabin }) {
   // get data from context
 
   const { range, setRange, resetRange } = useReservation();
 
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
+  const displayRange = isAlreadyBooked(range, bookedDates) ? {} : range;
+
+  const { regularPrice, discount } = cabin;
+  const numNights = differenceInDays(displayRange.to, displayRange.from);
+  const cabinPrice = numNights * (regularPrice - discount);
 
   // SETTINGS
   const { minBookingLength, maxBookingLength } = settings;
@@ -39,18 +44,11 @@ function DateSelector({ settings, bookedDates }) {
         className="pt-12 place-self-center"
         mode="range"
         onSelect={setRange}
-        selected={range}
-        disabled={{
-          before: today,
-          after: fiveYearsFromNow,
-        }}
-        modifiersClassNames={{
-          selected: "bg-accent-500 text-white rounded-full", // Apply accent color for selected dates
-          today: "text-accent-500 font-bold", // Accent color for today’s date
-          range_start: "bg-accent-500 text-white", // Accent color for range start
-          range_end: "bg-accent-500 text-white", // Accent color for range end
-          disabled: "opacity-50 cursor-not-allowed",
-        }}
+        selected={displayRange}
+        disabled={(curDate) =>
+          isPast(curDate) ||
+          bookedDates.some((date) => isSameDay(date, curDate))
+        }
         captionLayout="dropdown"
         numberOfMonths={2}
       />
