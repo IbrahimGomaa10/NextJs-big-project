@@ -32,9 +32,9 @@ AUTH_GOOGLE_SECRET =
 
 ## Frontend:
 - **Framework**: React, Next.js 14 (App Router)
-- **React Hook Form**, **Zod** (for client-side validation)
+- for client-side validation
 - **React Select** (for forms customization)
-- **Styling**: Tailwind CSS, responsive design
+- **Styling**: Tailwind CSS
 
 ## Backend:
 - **DB**: SupaBase
